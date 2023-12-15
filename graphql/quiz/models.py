@@ -13,7 +13,7 @@ class Quizzes(models.Model):
     title = models.CharField(max_length=255, default=_(
         "New Quiz"))
     category = models.ForeignKey(
-        Category, default=1, on_delete=models.DO_NOTHING)
+        Category, default=1, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -34,10 +34,8 @@ class Question(models.Model):
         (0, _('Multiple Choice')),
     )
 
-    quiz = models.ForeignKey(
-        Quizzes, related_name='question', on_delete=models.DO_NOTHING)
-    technique = models.IntegerField(
-        choices=TYPE, default=0, verbose_name=_("Type of Question"))
+    quiz = models.ForeignKey(Quizzes, related_name='question', on_delete=models.CASCADE)
+    technique = models.IntegerField( choices=TYPE, default=0, verbose_name=_("Type of Question"))
     title = models.CharField(max_length=255, verbose_name=_("Title"))
     difficulty = models.IntegerField(
         choices=SCALE, default=0, verbose_name=_("Difficulty"))
@@ -53,7 +51,7 @@ class Question(models.Model):
 class Answer(models.Model):
 
     question = models.ForeignKey(
-        Question, related_name='answer', on_delete=models.DO_NOTHING)
+        Question, related_name='answer', on_delete=models.CASCADE)
     answer_text = models.CharField(
         max_length=255, verbose_name=_("Answer Text"))
     is_right = models.BooleanField(default=False)

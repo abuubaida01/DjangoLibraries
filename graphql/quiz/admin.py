@@ -3,7 +3,8 @@ from . import models
 
 @admin.register(models.Category)
 class CatAdmin(admin.ModelAdmin):
-	list_display = [
+	list_display = [ 
+        'id',
         'name',
         ]
 
@@ -24,22 +25,28 @@ class AnswerInlineModel(admin.TabularInline):
 @admin.register(models.Question)
 
 class QuestionAdmin(admin.ModelAdmin):
-    fields = [
-        'title',
-        'quiz',
-        ]
     list_display = [
+        'id',
         'title', 
-        'quiz',
         ]
-    inlines = [
-        AnswerInlineModel, 
-        ] 
+
+    # fields = [
+    #     'title',
+    #     'quiz',
+    #     ]
+    # list_display = [
+    #     'title', 
+    #     'quiz',
+    #     ]
+    # inlines = [
+    #     AnswerInlineModel, 
+    #     ] 
 
 @admin.register(models.Answer)
 
 class AnswerAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'answer_text', 
         'is_right', 
         'question'
